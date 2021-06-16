@@ -2,6 +2,9 @@ from fileReader import getAttributeNames, getAttributeNames, getAttributeValues,
 import os
 import sys
 
+from naive_bayes import NaiveBayesClassifier
+from accuracy_prediction import accuracy
+
 def main():
     '''
     Main function that runs all ther different functions
@@ -24,17 +27,28 @@ def main():
     # Retrieves the class column from the test file
     YTest = getClassValues(testData)
     
-    # X: data of instances
-    print("Data from X:")
-    print(X)
+    # # X: data of instances
+    # print("Data from X:")
+    # print(X)
     
-    # Y: data of class variables
-    print("Data from Y:")
-    print(Y)
+    # # Y: data of class variables
+    # print("Data from Y:")
+    # print(Y)
     
-    # M: data of attribute names
-    print("Data from M:")
-    print(M)
+    # # M: data of attribute names
+    # print("Data from M:")
+    # print(M)
+
+    classifier = NaiveBayesClassifier(X, Y, M)
+    classifier.print()
+
+    Y_predict_train = classifier.predict(X)
+    print("\nAccuracy on training set ({} instances): {:.2f}%".format(len(Y_predict_train), 
+                accuracy(Y_predict_train, Y) * 100))
+    # Calculates the testing instances prediction
+    Y_predict_test = classifier.predict(XTest)
+    print("\nAccuracy on testing set ({} instances): {:.2f}%".format(len(Y_predict_test), 
+            accuracy(Y_predict_test, YTest) * 100))
     
 
 if __name__ == "__main__":
