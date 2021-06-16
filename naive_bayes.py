@@ -15,22 +15,22 @@ class NaiveBayesClassifier:
                 class_value: value of class
         returns P(x = x_i, y = y_i)
         '''
-        numberOfInstances = sum([1 if self.X[i][feature_id] == feature_value and self.y[i] == class_value 
+        number_of_instances = sum([1 if self.X[i][feature_id] == feature_value and self.y[i] == class_value 
                                     else 0
                                     for i in range(self.dataset_size)])
 
-        return numberOfInstances / self.dataset_size
+        return number_of_instances / self.dataset_size
 
     def _class_probability(self, class_value: int) -> float:
         '''
         param:  class_value: value of class
         returns P(y = y_i)
         '''
-        numberOfInstances = sum([1 if y == class_value
+        number_of_instances = sum([1 if y == class_value
                                     else 0
                                     for y in self.y])
 
-        return numberOfInstances / self.dataset_size
+        return number_of_instances / self.dataset_size
 
     def _feature_probability(self, feature_id: int, feature_value: int, class_value: int = None) -> float:
         '''
@@ -43,13 +43,11 @@ class NaiveBayesClassifier:
         if class_value != None:
             return self._joint_probability(feature_id, feature_value, class_value) / self._class_probability(class_value)
         else:
-            numberOfInstances = sum([1 if self.X[i][feature_id] == feature_value
+            number_of_instances = sum([1 if self.X[i][feature_id] == feature_value
                                         else 0
                                         for i in range(self.dataset_size)])
 
-            print(numberOfInstances)
-
-            return numberOfInstances / self.dataset_size
+            return number_of_instances / self.dataset_size
 
     def _class_probability_by_features(self, class_value: int, feature_values: list) -> float:
         '''
